@@ -68,4 +68,11 @@ public class ConnectionTests {
     public void testEndOfGame() {
 
     }
+    /**
+     * Test that GET requests can be made to PokeAPI for data
+     */
+    @Test
+    public void getPokeAPIData() {
+
+    }
 }
