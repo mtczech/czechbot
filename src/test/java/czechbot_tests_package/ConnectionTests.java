@@ -1,23 +1,30 @@
 package czechbot_tests_package;
 
-
+import connections_package.ServerLinker;
+import connections_package.ShowdownClient;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ConnectionTests {
+    ShowdownClient testClient;
+
+    /**
+     * Setting everything up for each test
+     */
+    @Before
+    public void setUp() throws URISyntaxException {
+        testClient = new ShowdownClient(new URI("ws://sim.smogon.com:8000/showdown/websocket"));
+    }
     //Just making sure that I set up JUnit properly
     @Test
     public void sanityCheck() {
         assertEquals(4, 4);
-    }
-
-    /**
-     * Test to see that a connection can actually be established
-     */
-    @Test
-    public void isConnectionThere() {
-
     }
 
     /**
