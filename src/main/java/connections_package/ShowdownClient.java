@@ -6,14 +6,8 @@ import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Scanner;
 
 public class ShowdownClient extends WebSocketClient {
-
-    /**
-     * Scanner so that the connection does not immediately terminate
-     */
-    Scanner scanner = new Scanner(System.in);
 
     public ShowdownClient(URI serverUri, Draft draft) {
         super(serverUri, draft);
@@ -28,14 +22,14 @@ public class ShowdownClient extends WebSocketClient {
         System.out.println("Connection Achieved!");
         System.out.println(this.isOpen());
         System.out.println(serverHandshake.getHttpStatusMessage());
-        this.sendPing();
     }
 
     @Override
     public void onMessage(String s) {
-        System.out.println(this.isOpen());
         System.out.println(s);
-        this.sendPing();
+        if (s.contains("|challstr|")) {
+
+        }
     }
 
     @Override

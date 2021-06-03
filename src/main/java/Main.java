@@ -1,4 +1,3 @@
-import connections_package.ServerLinker;
 import connections_package.ShowdownClient;
 
 import java.net.URI;
