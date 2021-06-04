@@ -17,6 +17,8 @@ public class ShowdownClient extends WebSocketClient {
         super(serverUri);
     }
 
+    String challstr = "";
+
     @Override
     public void onOpen(ServerHandshake serverHandshake) {
         System.out.println("Connection Achieved!");
@@ -27,8 +29,10 @@ public class ShowdownClient extends WebSocketClient {
     @Override
     public void onMessage(String s) {
         System.out.println(s);
+        System.out.println("new message");
         if (s.contains("|challstr|")) {
-
+            String[] strings = s.split("\\|");
+            challstr = strings[3];
         }
     }
 

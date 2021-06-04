@@ -22,7 +22,7 @@ public class DataRetrievalClient {
         return request;
     }
 
-    public HttpRequest sendPostRequest(String url, String data) throws URISyntaxException {
+    public HttpRequest createPostRequest(String url, String data) throws URISyntaxException {
         HttpRequest request = HttpRequest.newBuilder(new URI(url))
                 .header("Content-Type", "text/plain; charset=UTF-8")
                 .POST(HttpRequest.BodyPublishers.ofString(data))
