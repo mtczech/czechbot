@@ -69,10 +69,17 @@ public class ConnectionTests {
 
     }
     /**
-     * Test that GET requests can be made to PokeAPI for data
+     * Test that GET requests can be made to PokeAPI for data on a Pokemon
      */
     @Test
-    public void getPokeAPIData() {
+    public void getPokemonData() {
+
+    }
+    /**
+     * Test that GET requests can be made to PokeAPI for data on a move
+     */
+    @Test
+    public void getMoveData() {
 
     }
 }
