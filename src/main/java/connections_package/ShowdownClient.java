@@ -17,7 +17,7 @@ public class ShowdownClient extends WebSocketClient {
         super(serverUri);
     }
 
-    String challstr = "";
+    private String challstr = "";
 
     @Override
     public void onOpen(ServerHandshake serverHandshake) {
@@ -44,5 +44,9 @@ public class ShowdownClient extends WebSocketClient {
     @Override
     public void onError(Exception e) {
         System.out.println(e);
+    }
+
+    public String getChallstr() {
+        return challstr;
     }
 }

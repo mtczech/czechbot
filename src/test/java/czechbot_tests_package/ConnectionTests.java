@@ -82,4 +82,11 @@ public class ConnectionTests {
     public void getMoveData() {
 
     }
+    /**
+     * Check to see what happens if you try to log in when already logged in
+     */
+    @Test
+    public void checkDoubleLogin() {
+
+    }
 }
