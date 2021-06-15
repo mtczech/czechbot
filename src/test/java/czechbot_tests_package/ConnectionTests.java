@@ -1,6 +1,6 @@
 package czechbot_tests_package;
 
-import connections_package.ShowdownClient;
+import decisions_package.ShowdownClient;
 import org.junit.Before;
 import org.junit.Test;
 
