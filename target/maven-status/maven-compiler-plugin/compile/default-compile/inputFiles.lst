@@ -1,8 +1,8 @@
-C:\Users\Matthew\IdeaProjects\czechbot_a_pokemon_showdown_bot\src\main\java\connections_package\DataRetrievalClient.java
-C:\Users\Matthew\IdeaProjects\czechbot_a_pokemon_showdown_bot\src\main\java\connections_package\ShowdownClient.java
-C:\Users\Matthew\IdeaProjects\czechbot_a_pokemon_showdown_bot\src\main\java\data_classes\BattleState.java
-C:\Users\Matthew\IdeaProjects\czechbot_a_pokemon_showdown_bot\src\main\java\data_classes\Move.java
-C:\Users\Matthew\IdeaProjects\czechbot_a_pokemon_showdown_bot\src\main\java\Main.java
-C:\Users\Matthew\IdeaProjects\czechbot_a_pokemon_showdown_bot\src\main\java\decisions_package\DecisionEngine.java
-C:\Users\Matthew\IdeaProjects\czechbot_a_pokemon_showdown_bot\src\main\java\data_classes\Pokemon.java
-C:\Users\Matthew\IdeaProjects\czechbot_a_pokemon_showdown_bot\src\main\java\decisions_package\DecisionTransmitter.java
+C:\Users\Matthew\IdeaProjects\czechbot\src\main\java\decisions_package\ShowdownClient.java
+C:\Users\Matthew\IdeaProjects\czechbot\src\main\java\data_classes\Pokemon.java
+C:\Users\Matthew\IdeaProjects\czechbot\src\main\java\decisions_package\DecisionTransmitter.java
+C:\Users\Matthew\IdeaProjects\czechbot\src\main\java\Main.java
+C:\Users\Matthew\IdeaProjects\czechbot\src\main\java\data_classes\BattleState.java
+C:\Users\Matthew\IdeaProjects\czechbot\src\main\java\decisions_package\DecisionEngine.java
+C:\Users\Matthew\IdeaProjects\czechbot\src\main\java\decisions_package\DataRetrievalClient.java
+C:\Users\Matthew\IdeaProjects\czechbot\src\main\java\data_classes\Move.java

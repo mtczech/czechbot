@@ -1,8 +1,8 @@
 Main.class
-connections_package\ShowdownClient.class
 decisions_package\DecisionEngine.class
+decisions_package\ShowdownClient.class
 data_classes\BattleState.class
-connections_package\DataRetrievalClient.class
 decisions_package\DecisionTransmitter.class
 data_classes\Pokemon.class
+decisions_package\DataRetrievalClient.class
 data_classes\Move.class
