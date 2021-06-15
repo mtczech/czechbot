@@ -8,24 +8,20 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.junit.runner.Request;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 
 public class DataRetrievalClient {
     /**
      * HttpClient, necessary for sending messages
      */
 
-    HttpClient client;
-
     public DataRetrievalClient() {
-        client = HttpClient.newHttpClient();
+
     }
 
     /**
@@ -37,13 +33,13 @@ public class DataRetrievalClient {
     public String createAndSendGetRequest(String url) throws IOException {
         try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
 
-            var request = new HttpGet(url);
+            HttpGet request = new HttpGet(url);
             CloseableHttpResponse response = client.execute(request);
 
-            var bufReader = new BufferedReader(new InputStreamReader(
+            BufferedReader bufReader = new BufferedReader(new InputStreamReader(
                     response.getEntity().getContent()));
 
-            var builder = new StringBuilder();
+            StringBuilder builder = new StringBuilder();
 
             String line;
 
@@ -73,7 +69,6 @@ public class DataRetrievalClient {
             HttpPost request = new HttpPost(url);
             request.setEntity(new StringEntity(data));
             request.setHeader("User-Agent", "Java client");
-            System.out.println(request.getEntity().getContent().transferTo(System.out));
             request.setHeader("Content-Type", "application/x-www-form-urlencoded; encoding=UTF-8");
 
             CloseableHttpResponse response = client.execute(request);
@@ -94,11 +89,5 @@ public class DataRetrievalClient {
             System.out.println(builder);
             return builder.toString();
         }
-    }
-
-    public String sendHTTPRequest(HttpRequest request) throws InterruptedException, IOException {
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println("The message was sent");
-        return response.body();
     }
 }
