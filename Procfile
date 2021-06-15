@@ -1,1 +1,1 @@
-web: java -jar target/java-getting-started-1.0.jar
+web: java -jar target/czechbot_a_pokemon_showdown_bot-1.0.jar
