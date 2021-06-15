@@ -36,15 +36,12 @@
             <groupId>hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
             <version>2.2</version>
-            <scope>system</scope>
-            <systemPath>C:\JUnit\hamcrest-2.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
             <scope>system</scope>
-            <systemPath>C:\JUnit\junit-4.13.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.java-websocket</groupId>
