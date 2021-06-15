@@ -1,4 +1,4 @@
-package connections_package;
+package decisions_package;
 
 import org.apache.http.Consts;
 import org.apache.http.client.methods.CloseableHttpResponse;

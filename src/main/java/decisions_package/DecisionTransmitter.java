@@ -1,16 +1,12 @@
 package decisions_package;
 
-import connections_package.DataRetrievalClient;
-import connections_package.ShowdownClient;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.http.HttpRequest;
-import java.util.*;
-import java.util.concurrent.ExecutionException;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 public class DecisionTransmitter {
     //DecisionEngine that does the work of determining which move to use
@@ -34,7 +30,7 @@ public class DecisionTransmitter {
      * @throws InterruptedException
      */
 
-    public void initialize() throws InterruptedException, URISyntaxException, IOException {
+    public void initialize() throws InterruptedException, IOException {
         showdownClient.connect();
         File privateDataFile = new File("src/main/resources/private_showdown_data");
         Scanner scanner = new Scanner(privateDataFile);

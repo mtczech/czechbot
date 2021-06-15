@@ -1,4 +1,4 @@
-package connections_package;
+package decisions_package;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
