@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import org.apache.http.client.methods.HttpUriRequest;
+
 public class DecisionTransmitter {
     //DecisionEngine that does the work of determining which move to use
     private DecisionEngine engine;
