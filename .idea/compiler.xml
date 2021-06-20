@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="czechbot" />
+        <module name="czechbot_a_pokemon_showdown_bot" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="czechbot" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

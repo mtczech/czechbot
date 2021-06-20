@@ -13,6 +13,9 @@ import java.io.InputStreamReader;
 import java.net.*;
 
 public class DataRetrievalClient {
+
+    private Socket webSocket;
+
     /**
      * HttpClient, necessary for sending messages
      */

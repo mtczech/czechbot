@@ -18,7 +18,7 @@ public class DecisionTransmitter {
     //For sending WebSocket instructions to Pokemon Showdown
     private ShowdownClient showdownClient;
 
-    public DecisionTransmitter(String serverURI) throws URISyntaxException {
+    public DecisionTransmitter(String serverURI) throws URISyntaxException, IOException {
         engine = new DecisionEngine();
         httpClient = new DataRetrievalClient();
         showdownClient = new ShowdownClient(new URI(serverURI));
