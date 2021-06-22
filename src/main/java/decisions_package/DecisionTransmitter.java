@@ -1,5 +1,7 @@
 package decisions_package;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,6 +19,9 @@ public class DecisionTransmitter {
 
     //For sending WebSocket instructions to Pokemon Showdown
     private ShowdownClient showdownClient;
+
+    //For receiving JSON instructions from the server
+    private ObjectMapper mapper;
 
     public DecisionTransmitter(String serverURI) throws URISyntaxException, IOException {
         engine = new DecisionEngine();
@@ -41,7 +46,8 @@ public class DecisionTransmitter {
         Thread.sleep(3000);
         String outputJSON = httpClient.createAndSendPostRequest("http://play.pokemonshowdown.com/action.php",
                 "act=login&name=" + usernameAndPassword.get(0) + "&pass="
-                        + usernameAndPassword.get(1) + "&challstr=" + showdownClient.getChallstr());
+                        + usernameAndPassword.get(1) + "&challstr=" + showdownClient.getChallstr()
+                        + "&challengekeyid=2");
         System.out.println(outputJSON);
         Thread.sleep(3000);
     }

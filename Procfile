@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/*.war
+worker: java -jar target/czechbot_a_pokemon_showdown_bot-1.0-SNAPSHOT.jar
