@@ -40,9 +40,9 @@ public class DecisionTransmitter {
      * @throws InterruptedException
      */
 
-    public void initialize() throws InterruptedException, IOException {
+    public void initialize() throws IOException {
         showdownClient.connect();
-        File privateDataFile = new File("src/main/resources/private_showdown_data");
+        File privateDataFile = new File("src/main/resources/private_data");
         Scanner scanner = new Scanner(privateDataFile);
         LinkedList<String> usernameAndPassword = new LinkedList<>();
         while (scanner.hasNextLine()) {
