@@ -32,8 +32,9 @@ public class ShowdownClient extends WebSocketClient {
         System.out.println("new message");
         if (s.contains("|challstr|")) {
             String[] strings = s.split("\\|");
-            challstr = strings[3];
+            challstr = strings[2] + "|" + strings[3];
         }
+        System.out.println(challstr);
     }
 
     @Override

@@ -50,8 +50,7 @@ public class DecisionTransmitter {
         }
         String outputJSON = httpClient.createAndSendPostRequest("http://play.pokemonshowdown.com/action.php",
                 "act=login&name=" + usernameAndPassword.get(0) + "&pass="
-                        + usernameAndPassword.get(1) + "&challstr=" + showdownClient.getChallstr()
-                        + "&challengekeyid=2");
+                        + usernameAndPassword.get(1) + "&challstr=" + showdownClient.getChallstr());
         outputJSON = outputJSON.replaceAll("]", "");
         System.out.println(outputJSON);
         holder = mapper.readValue(outputJSON, AssertionHolder.class);
