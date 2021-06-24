@@ -3,7 +3,7 @@ decisions_package\DecisionEngine.class
 decisions_package\ShowdownClient.class
 data_classes\BattleState.class
 decisions_package\DecisionTransmitter.class
+data_classes\Assertion.class
 data_classes\Pokemon.class
-decisions_package\HerokuClient.class
 decisions_package\DataRetrievalClient.class
 data_classes\Move.class

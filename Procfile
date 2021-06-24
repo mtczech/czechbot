@@ -1,1 +1,1 @@
-worker: java -jar target/czechbot_a_pokemon_showdown_bot-1.0-SNAPSHOT.jar
+web: java -jar target/czechbot_a_pokemon_showdown_bot-1.0-SNAPSHOT.jar

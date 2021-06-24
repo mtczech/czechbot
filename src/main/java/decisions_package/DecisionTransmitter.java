@@ -1,6 +1,7 @@
 package decisions_package;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import data_classes.AssertionHolder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,10 +24,14 @@ public class DecisionTransmitter {
     //For receiving JSON instructions from the server
     private ObjectMapper mapper;
 
+    //Assertion holder for receiving the JSON assertion
+    private AssertionHolder holder;
+
     public DecisionTransmitter(String serverURI) throws URISyntaxException, IOException {
         engine = new DecisionEngine();
         httpClient = new DataRetrievalClient();
         showdownClient = new ShowdownClient(new URI(serverURI));
+        mapper = new ObjectMapper();
     }
 
     /**
@@ -43,12 +48,15 @@ public class DecisionTransmitter {
         while (scanner.hasNextLine()) {
             usernameAndPassword.add(scanner.nextLine());
         }
-        Thread.sleep(3000);
         String outputJSON = httpClient.createAndSendPostRequest("http://play.pokemonshowdown.com/action.php",
                 "act=login&name=" + usernameAndPassword.get(0) + "&pass="
                         + usernameAndPassword.get(1) + "&challstr=" + showdownClient.getChallstr()
                         + "&challengekeyid=2");
+        outputJSON = outputJSON.replaceAll("]", "");
         System.out.println(outputJSON);
-        Thread.sleep(3000);
+        holder = mapper.readValue(outputJSON, AssertionHolder.class);
+        String[] modAssertion = holder.getAssertion().split(";");
+        System.out.println(holder.getAssertion());
+        showdownClient.send("|/trn " + "czechbot,14," + holder.getAssertion());
     }
 }
