@@ -83,10 +83,6 @@ public class ConnectionTests {
 
     }
     /**
-     * Check to see what happens if you try to log in when already logged in
+     * Test that a message can be typed into the console and sent to Showdown
      */
-    @Test
-    public void checkDoubleLogin() {
-
-    }
 }

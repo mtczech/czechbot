@@ -36,26 +36,32 @@ public class DecisionTransmitter {
 
     /**
      * Initializes a connection between the program and Showdown, also logs in
-     * @throws FileNotFoundException
-     * @throws InterruptedException
      */
 
-    public void initialize() throws IOException {
+    public void initialize() throws IOException, InterruptedException {
         showdownClient.connect();
         File privateDataFile = new File("src/main/resources/actually_private_data");
-        Scanner scanner = new Scanner(privateDataFile);
+        Scanner tempScanner = new Scanner(privateDataFile);
         LinkedList<String> usernameAndPassword = new LinkedList<>();
-        while (scanner.hasNextLine()) {
-            usernameAndPassword.add(scanner.nextLine());
+        while (tempScanner.hasNextLine()) {
+            usernameAndPassword.add(tempScanner.nextLine());
         }
+        Thread.sleep(3000);
         String outputJSON = httpClient.createAndSendPostRequest("http://play.pokemonshowdown.com/action.php",
                 "act=login&name=" + usernameAndPassword.get(0) + "&pass="
                         + usernameAndPassword.get(1) + "&challstr=" + showdownClient.getChallstr());
         outputJSON = outputJSON.replaceAll("]", "");
         System.out.println(outputJSON);
         holder = mapper.readValue(outputJSON, AssertionHolder.class);
-        String[] modAssertion = holder.getAssertion().split(";");
-        System.out.println(holder.getAssertion());
         showdownClient.send("|/trn " + "czechbot,14," + holder.getAssertion());
+    }
+
+    /**
+     * The bot can only do generation 8 random battles as of right now.
+     * This command sets the bot to search for a random battle
+     * TODO: Implement call to search for a random battle
+     */
+    public void startRandomBattle() {
+
     }
 }
