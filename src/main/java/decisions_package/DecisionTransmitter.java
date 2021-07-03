@@ -27,11 +27,15 @@ public class DecisionTransmitter {
     //Assertion holder for receiving the JSON assertion
     private AssertionHolder holder;
 
+    //Scanner for reading commands typed into the console
+    private Scanner consoleScanner;
+
     public DecisionTransmitter(String serverURI) throws URISyntaxException, IOException {
         engine = new DecisionEngine();
         httpClient = new DataRetrievalClient();
         showdownClient = new ShowdownClient(new URI(serverURI));
         mapper = new ObjectMapper();
+        consoleScanner = new Scanner(System.in);
     }
 
     /**
@@ -54,6 +58,7 @@ public class DecisionTransmitter {
         System.out.println(outputJSON);
         holder = mapper.readValue(outputJSON, AssertionHolder.class);
         showdownClient.send("|/trn " + "czechbot,14," + holder.getAssertion());
+        startRandomBattle();
     }
 
     /**
@@ -62,6 +67,20 @@ public class DecisionTransmitter {
      * TODO: Implement call to search for a random battle
      */
     public void startRandomBattle() {
+        //Code to start the search for a gen8 random battle
+        showdownClient.send("|/utm null");
+        showdownClient.send("|/search gen8randombattle");
+        engine.setBattleGoing(true);
+        sendBattleMessages();
+    }
 
+    /**
+     * Simple method of sending a message to Showdown with a move request
+     */
+    public void sendBattleMessages() {
+        while (engine.getBattleGoing()) {
+            String message = consoleScanner.nextLine();
+            showdownClient.send(showdownClient.getBattleRoomId() + "|/" + message);
+        }
     }
 }
