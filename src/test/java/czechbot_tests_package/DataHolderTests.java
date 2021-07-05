@@ -1,6 +1,10 @@
 package czechbot_tests_package;
 
+import decisions_package.DecisionEngine;
 import org.junit.Test;
+import static org.junit.Assert.*;
+
+import java.io.IOException;
 
 public class DataHolderTests {
     /**
@@ -24,5 +28,13 @@ public class DataHolderTests {
     @Test
     public void resetStatChanges() {
 
+    }
+    /**
+     * Check to see type matrix has the correct number of types
+     */
+    @Test
+    public void checkTypeMatrixSize() throws IOException {
+        DecisionEngine engine = new DecisionEngine();
+        assertEquals(engine.getTypeMatchups().size(), 18);
     }
 }

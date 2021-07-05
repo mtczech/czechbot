@@ -8,6 +8,13 @@ public class AITests {
 
     }
     /**
+     * Test to see that the types in the type matrix have been correctly loaded in
+     */
+    @Test
+    public void typeValidityCheck() {
+
+    }
+    /**
      * Test to see a fainted pokemon cannot be switched into
      */
     @Test
