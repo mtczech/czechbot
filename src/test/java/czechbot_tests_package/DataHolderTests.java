@@ -18,4 +18,11 @@ public class DataHolderTests {
     public void removeFaintedPokemon() {
 
     }
+    /**
+     * Check to see stat changes are reset when a pokemon switches out
+     */
+    @Test
+    public void resetStatChanges() {
+
+    }
 }

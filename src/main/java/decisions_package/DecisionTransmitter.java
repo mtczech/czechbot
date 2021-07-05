@@ -64,7 +64,6 @@ public class DecisionTransmitter {
     /**
      * The bot can only do generation 8 random battles as of right now.
      * This command sets the bot to search for a random battle
-     * TODO: Implement call to search for a random battle
      */
     public void startRandomBattle() {
         //Code to start the search for a gen8 random battle

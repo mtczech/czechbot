@@ -62,10 +62,17 @@ public class ConnectionTests {
 
     }
     /**
-     * Test if the program terminates when the game is over
+     * Test if the program terminates when the game is over when the bot wins
      */
     @Test
-    public void testEndOfGame() {
+    public void testEndOfGameWin() {
+
+    }
+    /**
+     * Same as above but the bot loses
+     */
+    @Test
+    public void testEndOfGameLoss() {
 
     }
     /**
