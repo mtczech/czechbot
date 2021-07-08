@@ -17,7 +17,7 @@ public class Type {
     private String name;
 
     //Types that a move of this type will do no damage to
-    private String[] immunities;
+    private String[] immunes;
 
     //Types that a move of this type will do not very effective damage to
     private String[] weaknesses;
@@ -37,8 +37,8 @@ public class Type {
         return name;
     }
 
-    public String[] getImmunities() {
-        return immunities;
+    public String[] getImmunes() {
+        return immunes;
     }
 
     public String[] getStrengths() {
@@ -49,8 +49,8 @@ public class Type {
         return weaknesses;
     }
 
-    public void setImmunities(String[] immunities) {
-        this.immunities = immunities;
+    public void setImmunes(String[] immunes) {
+        this.immunes = immunes;
     }
 
     public void setStrengths(String[] strengths) {

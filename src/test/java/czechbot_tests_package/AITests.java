@@ -35,4 +35,18 @@ public class AITests {
     public void cannotUseDepletedPPMove() {
 
     }
+    /**
+     * Check Shedinja has the right HP value
+     */
+    @Test
+    public void checkShedinjaHPEqualsOne() {
+
+    }
+    /**
+     * Test to see pokemon lose stat boosts upon switching
+     */
+    @Test
+    public void checkStatBoostRemoval() {
+
+    }
 }
