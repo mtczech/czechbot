@@ -21,6 +21,8 @@ public class ShowdownClient extends WebSocketClient {
 
     private String battleRoomId = "";
 
+    private boolean isPlayerOne;
+
     @Override
     public void onOpen(ServerHandshake serverHandshake) {
         System.out.println("Connection Achieved!");
@@ -40,6 +42,12 @@ public class ShowdownClient extends WebSocketClient {
             String[] lines = s.split("\n");
             battleRoomId = lines[0].replaceAll(">", "");
         }
+        //TODO: If you are using this with a different username, change <czechbot> to your username
+        if (s.contains("|player|p1|czechbot")) {
+            isPlayerOne = true;
+        } else if (s.contains("|player|p2|czechbot")) {
+            isPlayerOne = false;
+        }
     }
 
     @Override
@@ -58,5 +66,9 @@ public class ShowdownClient extends WebSocketClient {
 
     public String getBattleRoomId() {
         return battleRoomId;
+    }
+
+    public boolean getIsPlayerOne() {
+        return isPlayerOne;
     }
 }

@@ -79,4 +79,11 @@ public class DataHolderTests {
     public void doBurnsDropAttack() {
 
     }
+    /**
+     * Test that a pokemon's stat boosts cannot go above plus or minus 6
+     */
+    @Test
+    public void statChangeCaps() {
+
+    }
 }

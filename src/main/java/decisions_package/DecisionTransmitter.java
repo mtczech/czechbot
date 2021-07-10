@@ -30,6 +30,9 @@ public class DecisionTransmitter {
     //Scanner for reading commands typed into the console
     private Scanner consoleScanner;
 
+    //Shows whether the user is player 1 or player 2
+    private boolean isPlayerOne;
+
     public DecisionTransmitter(String serverURI) throws URISyntaxException, IOException {
         engine = new DecisionEngine();
         httpClient = new DataRetrievalClient();
@@ -70,6 +73,7 @@ public class DecisionTransmitter {
         showdownClient.send("|/utm null");
         showdownClient.send("|/search gen8randombattle");
         engine.setBattleGoing(true);
+        isPlayerOne = showdownClient.getIsPlayerOne();
         sendBattleMessages();
     }
 

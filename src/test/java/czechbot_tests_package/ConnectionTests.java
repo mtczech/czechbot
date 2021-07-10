@@ -89,7 +89,4 @@ public class ConnectionTests {
     public void getMoveData() {
 
     }
-    /**
-     * Test that a message can be typed into the console and sent to Showdown
-     */
 }
