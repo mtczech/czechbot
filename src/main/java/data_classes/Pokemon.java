@@ -5,7 +5,10 @@ import decisions_package.DataRetrievalClient;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Pokemon {
+public class Pokemon {
+
+    //Name of the pokemon
+    private String speciesName;
 
     //Amount of HP a pokemon currently has
     private int currentHp;
@@ -31,4 +34,9 @@ public abstract class Pokemon {
 
     private int pokemonLevel;
 
+    private boolean isConfused = false;
+
+    //TODO: Add enum for status ailment
+
+    private String item;
 }

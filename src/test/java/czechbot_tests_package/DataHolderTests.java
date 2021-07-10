@@ -86,4 +86,18 @@ public class DataHolderTests {
     public void statChangeCaps() {
 
     }
+    /**
+     * Test that Porygon2 can be looked up
+     */
+    @Test
+    public void checkForPorygon2() {
+
+    }
+    /**
+     * Test that Alolan and Galarian forms can be looked up
+     */
+    @Test
+    public void checkForAlternateForms() {
+
+    }
 }
