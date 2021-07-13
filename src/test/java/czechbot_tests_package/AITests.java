@@ -49,4 +49,11 @@ public class AITests {
     public void checkStatBoostRemoval() {
 
     }
+    /**
+     * Check multi hit moves are analyzed correctly
+     */
+    @Test
+    public void checkMultiHitMoves() {
+
+    }
 }
