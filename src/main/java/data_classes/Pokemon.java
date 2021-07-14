@@ -7,6 +7,7 @@ import pokemon_deserializers.GeneralPokemonDeserializer;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonDeserialize(using = GeneralPokemonDeserializer.class)
 public class Pokemon {
 
     public Pokemon() {
