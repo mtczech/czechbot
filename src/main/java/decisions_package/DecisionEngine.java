@@ -3,6 +3,7 @@ package decisions_package;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
+import data_classes.Move;
 import data_classes.MoveURLList;
 import data_classes.Type;
 
@@ -25,6 +26,9 @@ public class DecisionEngine {
 
     //Type Matrix instance for calling which types are good against which other types
     private List<Type> typeMatchups;
+
+    //DataRetrievalClient for getting JSON about pokemon and moves
+    private DataRetrievalClient client = new DataRetrievalClient();
 
     /**
      * The names of moves according to PokeAPI have hyphens in them,
@@ -93,9 +97,14 @@ public class DecisionEngine {
         }
         return 1;
     }
-
     /**
-     * Loads the moves into the HashMap that is then used to look up each move
+     * Creates a move from the JSON data
+     * All moves input here must be in all lower case with no spaces
      */
-
+    public Move moveDeserializeFunction(String moveName) throws IOException {
+        String url = movesToURLs.getUrls().get(moveName);
+        String json = client.createAndSendGetRequest(url);
+        Move finishedMove = mapper.readValue(json, Move.class);
+        return finishedMove;
+    }
 }

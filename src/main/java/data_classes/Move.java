@@ -1,21 +1,28 @@
 package data_classes;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import pokemon_deserializers.MoveDeserializer;
+
+@JsonDeserialize(using = MoveDeserializer.class)
 public class Move {
 
     public Move() {
 
     }
-    //Type of move that this move is
+    //Type of move that this move is (physical, special, status)
     private String categoryName;
 
+    //Type of move that this move is (elemental)
+    private String type;
+
     //Base power of a move, 0 if the move does no damage
-    private int power;
+    private int power = 0;
 
     //Accuracy of a move
     private int accuracy;
 
     //Chance the move will cause its additional effect
-    private int effectChance;
+    private int effectChance = 0;
 
     //Name of the move
     private String name;
@@ -27,22 +34,52 @@ public class Move {
     private String damageClassName;
 
     //The ailment the move causes, if any
-    private Ailment ailmentName;
+    private Ailment ailmentName = Ailment.None;
 
     //Chance the move will cause an ailment
-    private int ailmentChance;
+    private int ailmentChance = 0;
 
     //Amount of HP gained back from this move being used, negative in case of recoil damage
-    private int drain;
+    private int drain = 0;
 
     //Percentage of the user's HP healed
-    private int healing;
+    private int healing = 0;
 
     //Chance the opponent will flinch
-    private int flinchChance;
+    private int flinchChance = 0;
 
     //Chance stats will change on the user or opponent
-    private int statChance;
+    private int statChance = 0;
+
+    //Whether or not the move can cause confusion
+    private boolean canConfuse = false;
+
+    //Chance of causing confusion
+    private int confusionChance = 0;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public boolean isCanConfuse() {
+        return canConfuse;
+    }
+
+    public int getConfusionChance() {
+        return confusionChance;
+    }
+
+    public void setCanConfuse(boolean canConfuse) {
+        this.canConfuse = canConfuse;
+    }
+
+    public void setConfusionChance(int confusionChance) {
+        this.confusionChance = confusionChance;
+    }
 
     public String getName() {
         return name;

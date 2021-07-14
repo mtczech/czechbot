@@ -56,4 +56,11 @@ public class AITests {
     public void checkMultiHitMoves() {
 
     }
+    /**
+     * Check Fake Out is not used on turn 2
+     */
+    @Test
+    public void checkFakeOutNotUsed() {
+
+    }
 }
