@@ -2,6 +2,7 @@ package czechbot_tests_package;
 
 import android.os.SystemPropertiesProto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import data_classes.Move;
 import data_classes.Pokemon;
 import decisions_package.DataRetrievalClient;
 import decisions_package.DecisionEngine;
@@ -55,5 +56,13 @@ public class DeserializerTests {
     public void checkBadMoveName() {
         String badName = engine.getMovesToURLs().getUrls().get("tombstoner");
         System.out.println(badName);
+    }
+
+    @Test
+    public void checkMoveCreator() throws IOException {
+        Move fireBlast = engine.moveDeserializeFunction("fireblast");
+        assertEquals(fireBlast.getAccuracy(), 85);
+        assertEquals(fireBlast.getType(), "fire");
+        assertEquals(fireBlast.getAilmentChance(), 10);
     }
 }

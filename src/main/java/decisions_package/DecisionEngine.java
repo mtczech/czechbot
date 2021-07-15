@@ -64,6 +64,14 @@ public class DecisionEngine {
         return typeMatchups;
     }
 
+    public DataRetrievalClient getClient() {
+        return client;
+    }
+
+    public ObjectMapper getMapper() {
+        return mapper;
+    }
+
     /**
      * Helper function for finding the damage dealt from type matchups
      * @param attackingType The type of the move being used

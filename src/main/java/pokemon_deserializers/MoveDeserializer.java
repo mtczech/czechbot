@@ -9,6 +9,7 @@ import data_classes.Ailment;
 import data_classes.Move;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class MoveDeserializer extends StdDeserializer<Move> {
     public MoveDeserializer() {

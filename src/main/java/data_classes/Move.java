@@ -1,5 +1,6 @@
 package data_classes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import pokemon_deserializers.MoveDeserializer;
 
@@ -9,6 +10,7 @@ public class Move {
     public Move() {
 
     }
+
     //Type of move that this move is (physical, special, status)
     private String categoryName;
 
@@ -57,8 +59,15 @@ public class Move {
     //Chance of causing confusion
     private int confusionChance = 0;
 
+    //Whether or not a move is disabled by lack of PP, choice item, or something else
+    private boolean disabled = false;
+
     public String getType() {
         return type;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
     }
 
     public void setType(String type) {
@@ -127,6 +136,10 @@ public class Move {
 
     public String getDamageClassName() {
         return damageClassName;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 
     public void setAccuracy(int accuracy) {

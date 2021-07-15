@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import data_classes.BotPokemon;
+import data_classes.Move;
 import data_classes.Pokemon;
 import decisions_package.DataRetrievalClient;
 
@@ -43,7 +44,7 @@ public class BotPokemonDeserializer extends StdDeserializer<List<BotPokemon>> {
             newPokemon.setSpecialAttack(pokemon.at("stats").at("spa").asInt());
             newPokemon.setSpecialDefense(pokemon.at("stats").at("spd").asInt());
             newPokemon.setSpeed(pokemon.at("stats").at("spe").asInt());
-            List<String> moves = new LinkedList<>();
+            ArrayList<String> moves = new ArrayList<>();
             for (var move : pokemon.at("moves")) {
                 moves.add(move.asText());
             }

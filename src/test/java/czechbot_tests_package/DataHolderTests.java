@@ -1,5 +1,6 @@
 package czechbot_tests_package;
 
+import data_classes.Pokemon;
 import decisions_package.DecisionEngine;
 import org.junit.Before;
 import org.junit.Test;
@@ -100,4 +101,27 @@ public class DataHolderTests {
     public void checkForAlternateForms() {
 
     }
+    /**
+     * Test that the addMove function works properly
+     */
+    @Test
+    public void checkAddMove() throws IOException {
+        Pokemon poke = new Pokemon();
+        poke.addMove(engine.getMovesToURLs(), engine.getClient(), engine.getMapper(), "supersonic");
+        assertEquals(poke.getMoves().get(0).getAccuracy(), 55);
+        assertEquals(poke.getMoves().size(), 1);
+    }
+    /**
+     * Test that the addMove function cannot add duplicate moves
+     */
+    @Test
+    public void checkForNoDuplicateMoves() throws IOException {
+        Pokemon poke = new Pokemon();
+        poke.addMove(engine.getMovesToURLs(), engine.getClient(), engine.getMapper(), "supersonic");
+        poke.addMove(engine.getMovesToURLs(), engine.getClient(), engine.getMapper(), "supersonic");
+        assertEquals(poke.getMoves().size(), 1);
+    }
+    /**
+     * Test that Gigantamax moves can only be predicted when in Gigantamax form
+     */
 }
