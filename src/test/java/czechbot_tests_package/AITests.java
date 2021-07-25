@@ -63,4 +63,11 @@ public class AITests {
     public void checkFakeOutNotUsed() {
 
     }
+    /**
+     * Check to see a move is not used by the same pokemon against the same pokemon if it fails
+     */
+    @Test
+    public void doNotUseFailedMove() {
+
+    }
 }

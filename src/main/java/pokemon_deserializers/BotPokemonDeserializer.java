@@ -15,7 +15,6 @@ import decisions_package.DataRetrievalClient;
 import java.io.IOException;
 import java.util.*;
 
-@JsonDeserialize(using = GeneralPokemonDeserializer.class)
 public class BotPokemonDeserializer extends StdDeserializer<List<BotPokemon>> {
 
     public DataRetrievalClient dataGetter = new DataRetrievalClient();

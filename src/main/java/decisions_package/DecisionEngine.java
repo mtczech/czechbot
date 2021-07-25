@@ -5,14 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 import data_classes.Move;
 import data_classes.MoveURLList;
+import data_classes.Pokemon;
 import data_classes.Type;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -110,9 +109,30 @@ public class DecisionEngine {
      * All moves input here must be in all lower case with no spaces
      */
     public Move moveDeserializeFunction(String moveName) throws IOException {
+        String url = movesToURLs.getUrls().get(
+                moveName.replaceAll(" ", "").toLowerCase(Locale.ROOT));
+        if (url != null) {
+            String json = client.createAndSendGetRequest(url);
+            Move finishedMove = mapper.readValue(json, Move.class);
+            return finishedMove;
+        }
+        throw new IOException("You should not get to here!" +
+                " The input is not a valid move or is improperly formatted");
+    }
+
+    /**
+     * With this function, a move is added to the given Pokemon
+     * The move being created is based on the PokeAPI data for that particular move
+     */
+    public void addMoveToPokemon(Pokemon pokemon, String moveName) throws IOException {
         String url = movesToURLs.getUrls().get(moveName);
-        String json = client.createAndSendGetRequest(url);
-        Move finishedMove = mapper.readValue(json, Move.class);
-        return finishedMove;
+        String moveJSON = client.createAndSendGetRequest(url);
+        Move addedMove = mapper.readValue(moveJSON, Move.class);
+        for (Move m : pokemon.getMoves()) {
+            if (addedMove.getName().equals(m.getName())) {
+                return;
+            }
+        }
+        pokemon.getMoves().add(addedMove);
     }
 }

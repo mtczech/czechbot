@@ -65,4 +65,20 @@ public class DeserializerTests {
         assertEquals(fireBlast.getType(), "fire");
         assertEquals(fireBlast.getAilmentChance(), 10);
     }
+    /**
+     * Check that a bad move cannot be created
+     */
+    @Test
+    public void createBadMove() throws IOException {
+        Move badMove = engine.moveDeserializeFunction("tombstoner");
+    }
+    /**
+     * Check that the same move cannot be added to the same Pokemon twice
+     */
+    @Test
+    public void doNotAddMoveTwice() throws IOException {
+        engine.addMoveToPokemon(rattata, "bite");
+        engine.addMoveToPokemon(rattata, "bite");
+        assertEquals(rattata.getMoves().size(), 1);
+    }
 }
