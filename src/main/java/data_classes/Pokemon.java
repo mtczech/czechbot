@@ -12,6 +12,7 @@ import java.util.List;
 @JsonDeserialize(using = GeneralPokemonDeserializer.class)
 public class Pokemon {
 
+    //TODO: Implement system for recording boosts
     public Pokemon() {
 
     }

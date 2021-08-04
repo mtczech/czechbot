@@ -125,9 +125,7 @@ public class DecisionEngine {
      * The move being created is based on the PokeAPI data for that particular move
      */
     public void addMoveToPokemon(Pokemon pokemon, String moveName) throws IOException {
-        String url = movesToURLs.getUrls().get(moveName);
-        String moveJSON = client.createAndSendGetRequest(url);
-        Move addedMove = mapper.readValue(moveJSON, Move.class);
+        Move addedMove = moveDeserializeFunction(moveName);
         for (Move m : pokemon.getMoves()) {
             if (addedMove.getName().equals(m.getName())) {
                 return;
