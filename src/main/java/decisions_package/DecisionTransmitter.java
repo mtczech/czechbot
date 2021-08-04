@@ -53,14 +53,14 @@ public class DecisionTransmitter {
         while (tempScanner.hasNextLine()) {
             usernameAndPassword.add(tempScanner.nextLine());
         }
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         String outputJSON = httpClient.createAndSendPostRequest("http://play.pokemonshowdown.com/action.php",
                 "act=login&name=" + usernameAndPassword.get(0) + "&pass="
                         + usernameAndPassword.get(1) + "&challstr=" + showdownClient.getChallstr());
         outputJSON = outputJSON.replaceAll("]", "");
         System.out.println(outputJSON);
         holder = mapper.readValue(outputJSON, AssertionHolder.class);
-        showdownClient.send("|/trn " + "czechbot,14," + holder.getAssertion());
+        showdownClient.send("|/trn " + usernameAndPassword.get(0) + ",14," + holder.getAssertion());
         startRandomBattle();
     }
 
