@@ -36,7 +36,9 @@ public class MoveDeserializer extends StdDeserializer<Move> {
         }
         thisMove.setDrain(node.get("meta").get("drain").asInt());
         thisMove.setHealing(node.get("meta").get("healing").asInt());
-        thisMove.setAilmentChance(node.get("meta").get("ailment_chance").asInt());
+        if (!thisMove.isCanConfuse()) {
+            thisMove.setAilmentChance(node.get("meta").get("ailment_chance").asInt());
+        }
         thisMove.setFlinchChance(node.get("meta").get("flinch_chance").asInt());
         thisMove.setStatChance(node.get("meta").get("stat_chance").asInt());
         thisMove.setType(node.get("type").get("name").asText());
