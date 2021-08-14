@@ -172,17 +172,4 @@ public class Pokemon {
     public ArrayList<Move> getMoves() {
         return moves;
     }
-
-    public void addMove(MoveURLList urls, DataRetrievalClient getter,
-                        ObjectMapper mapper, String moveName) throws IOException {
-        String url = urls.getUrls().get(moveName);
-        String moveJSON = getter.createAndSendGetRequest(url);
-        Move addedMove = mapper.readValue(moveJSON, Move.class);
-        for (Move m : moves) {
-            if (addedMove.getName().equals(m.getName())) {
-                return;
-            }
-        }
-        this.moves.add(addedMove);
-    }
 }
