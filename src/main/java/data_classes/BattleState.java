@@ -3,10 +3,10 @@ package data_classes;
 import java.util.List;
 
 public class BattleState {
-    //The pokemon on your side that is currently in the battle
+    //The user's player instance, contains data on the bot
     private Player bot;
 
-    //The pokemon on the other side that is currently in the battle
+    //Contains data on the opponent
     private Player enemy;
 
     //Constructor for a BattleState given the raw data
@@ -15,11 +15,9 @@ public class BattleState {
         enemy = new Player(enemyStarter);
     }
 
-    /**
-     * Stat boosts, ranging from +6 to -6, for the user's and opposing Pokemon
-     * for stats such as attack, defense, sp. atk, sp. def, speed, evasion, and accuracy.
-     */
     //The weather currently on the field
     private Weather weather = Weather.None;
 
+    //The terrain of the field
+    private Terrain terrain = Terrain.None;
 }
