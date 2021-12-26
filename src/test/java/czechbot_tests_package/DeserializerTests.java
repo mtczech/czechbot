@@ -1,6 +1,5 @@
 package czechbot_tests_package;
 
-import android.os.SystemPropertiesProto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import data_classes.Move;
 import data_classes.Pokemon;
@@ -8,10 +7,12 @@ import decisions_package.DataRetrievalClient;
 import decisions_package.DecisionEngine;
 import org.junit.Before;
 import org.junit.Test;
-import pokemon_deserializers.GeneralPokemonDeserializer;
+import utility_classes.PokemonGameDataTeam;
+import utility_classes.PokemonTemplateHolder;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.io.IOException;
 
 public class DeserializerTests {
@@ -26,14 +27,29 @@ public class DeserializerTests {
 
     @Before
     public void setUp() throws IOException {
-        rattataJSON = dataGetter.createAndSendGetRequest("https://pokeapi.co/api/v2/pokemon/rattata");
-        rattata = new ObjectMapper().readValue(rattataJSON, Pokemon.class);
         engine = new DecisionEngine();
     }
 
     @Test
     public void sanityCheck() throws IOException {
 
+    }
+
+    @Test
+    public void checkRequestDataDeserializer() throws IOException {
+        File jsonFile = new File("C:\\Users\\Matthew\\IdeaProjects\\czechbot\\src\\main\\resources\\starting_state.json");
+        PokemonGameDataTeam t = new ObjectMapper().readValue(jsonFile, PokemonGameDataTeam.class);
+        assertTrue(t.dataList.get(0).atk == 119);
+        engine.initializeBattle(t);
+        assertEquals(engine.getCurrentBattleState().getBot().activePokemon.speciesName, "Noivern");
+    }
+
+    @Test
+    public void checkReferenceDeserializer() throws IOException {
+        File jsonFile = new File("C:\\Users\\Matthew\\IdeaProjects\\czechbot\\src\\main\\resources\\all_pokemon.json");
+        PokemonTemplateHolder p = new ObjectMapper().readValue(jsonFile, PokemonTemplateHolder.class);
+        assertTrue(p.getTemplates().get(0).getAtk() == 49);
+        assertTrue(p.getTemplates().get(0).getSpeciesName().equals("Bulbasaur"));
     }
 
     /**
@@ -80,5 +96,15 @@ public class DeserializerTests {
         engine.addMoveToPokemon(rattata, "bite");
         engine.addMoveToPokemon(rattata, "bite");
         assertEquals(rattata.getMoves().size(), 1);
+    }
+
+    @Test
+    public void maxFourMoves() throws IOException {
+        engine.addMoveToPokemon(rattata, "tackle");
+        engine.addMoveToPokemon(rattata, "bite");
+        engine.addMoveToPokemon(rattata, "crunch");
+        engine.addMoveToPokemon(rattata, "watergun");
+        engine.addMoveToPokemon(rattata, "fireblast");
+        assertEquals(rattata.getMoves().size(), 4);
     }
 }

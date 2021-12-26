@@ -1,7 +1,6 @@
 package data_classes;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import pokemon_deserializers.GeneralPokemonDeserializer;
 import pokemon_deserializers.MoveURLDeserializer;
 
 import java.util.HashMap;
@@ -22,5 +21,9 @@ public class MoveURLList {
 
     public HashMap<String, String> getUrls() {
         return urls;
+    }
+
+    public String returnUrl(String moveKey) {
+        return urls.get(moveKey);
     }
 }

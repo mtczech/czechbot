@@ -81,6 +81,13 @@ public class DataHolderTests {
 
     }
     /**
+     * Test if paralysis drops Speed
+     */
+    @Test
+    public void doesParalysisDropSpeed() {
+
+    }
+    /**
      * Test that a pokemon's stat boosts cannot go above plus or minus 6
      */
     @Test
@@ -107,7 +114,7 @@ public class DataHolderTests {
     @Test
     public void checkAddMove() throws IOException {
         Pokemon poke = new Pokemon();
-        poke.addMove(engine.getMovesToURLs(), engine.getClient(), engine.getMapper(), "supersonic");
+        //poke.addMove(engine.getMovesToURLs(), engine.getClient(), engine.getMapper(), "supersonic");
         assertEquals(poke.getMoves().get(0).getAccuracy(), 55);
         assertEquals(poke.getMoves().size(), 1);
     }
@@ -117,11 +124,42 @@ public class DataHolderTests {
     @Test
     public void checkForNoDuplicateMoves() throws IOException {
         Pokemon poke = new Pokemon();
-        poke.addMove(engine.getMovesToURLs(), engine.getClient(), engine.getMapper(), "supersonic");
-        poke.addMove(engine.getMovesToURLs(), engine.getClient(), engine.getMapper(), "supersonic");
+        //poke.addMove(engine.getMovesToURLs(), engine.getClient(), engine.getMapper(), "supersonic");
+        //poke.addMove(engine.getMovesToURLs(), engine.getClient(), engine.getMapper(), "supersonic");
         assertEquals(poke.getMoves().size(), 1);
     }
     /**
      * Test that Gigantamax moves can only be predicted when in Gigantamax form
      */
+    /**
+     * Check that residual damage only harms the currently in battle Pokemon
+     */
+    @Test
+    public void checkResidualOnlyCurrentPokemon() {
+        
+    }
+
+    /**
+     * Check to see that there are no duplicate pokemon in a team list
+     */
+    @Test
+    public void checkNoDuplicatePokemon() {
+
+    }
+    /**
+     * Test that the game does not end when a player has no pokemon left
+     * It is possible for a player to have no visible pokemon but the game to still be going
+     * E.g. the lead of a player dies but the player has not switched
+     */
+    @Test
+    public void checkPrematureEndGame() {
+
+    }
+    /**
+     * Test to see if the type names are capitalized the same for move types and engine
+     */
+    @Test
+    public void checkTypeNamesLineUp() {
+
+    }
 }

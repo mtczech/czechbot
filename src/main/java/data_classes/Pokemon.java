@@ -1,15 +1,13 @@
 package data_classes;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import decisions_package.DataRetrievalClient;
-import pokemon_deserializers.GeneralPokemonDeserializer;
+import pokemon_deserializers.PokemonTeamDataDeserializer;
+import utility_classes.PokemonGameData;
+import utility_classes.PokemonTemplate;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-@JsonDeserialize(using = GeneralPokemonDeserializer.class)
+@JsonDeserialize(using = PokemonTeamDataDeserializer.class)
 public class Pokemon {
 
     //TODO: Implement system for recording boosts
@@ -17,8 +15,41 @@ public class Pokemon {
 
     }
 
+    public Pokemon(PokemonTemplate speciesTemplate) {
+        speciesName = speciesTemplate.getSpeciesName();
+        baseAttack = speciesTemplate.getAtk();
+        baseDefense = speciesTemplate.getDef();
+        baseSpecialAttack = speciesTemplate.getSpa();
+        baseSpecialDefense = speciesTemplate.getSpd();
+        baseSpeed = speciesTemplate.getSpe();
+        types = speciesTemplate.getTypes();
+    }
+
+    //Function for calculation of a Pokemon's stats
+    public int calculateNonHPStat(int baseStat, int level) {
+        int EV_RANDOM_BATTLE_COUNT = 85;
+        int IV_RANDOM_BATTLE_COUNT = 31;
+        int statTotal = ((2 * baseStat) + EV_RANDOM_BATTLE_COUNT + (int)Math.floor(IV_RANDOM_BATTLE_COUNT * 0.25));
+        double levelMultiplier = level / 100;
+        int secondStat = (int)Math.floor(levelMultiplier * statTotal);
+        return secondStat + 5;
+    }
+
+    public int calculateHP(int baseStat, int level) {
+        //Fuck Shedinja, all my homies hate Shedinja
+        if (baseStat == 1) {
+            return 1;
+        }
+        int EV_RANDOM_BATTLE_COUNT = 85;
+        int IV_RANDOM_BATTLE_COUNT = 31;
+        int statTotal = ((2 * baseStat) + EV_RANDOM_BATTLE_COUNT + (int)Math.floor(IV_RANDOM_BATTLE_COUNT * 0.25));
+        double levelMultiplier = level / 100;
+        int secondStat = (int)Math.floor(levelMultiplier * statTotal);
+        return secondStat + level + 10;
+    }
+
     //Name of the pokemon
-    private String speciesName;
+    public String speciesName;
 
     //Amount of HP a pokemon currently has
     private int currentHp;
@@ -60,7 +91,6 @@ public class Pokemon {
 
     private boolean isConfused = false;
 
-    //TODO: Add enum for status ailment
     private Ailment ailment = Ailment.None;
 
     private String item;

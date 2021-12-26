@@ -47,7 +47,6 @@ public class DataRetrievalClient {
                 builder.append(System.lineSeparator());
             }
 
-            System.out.println(builder);
             return builder.toString();
         }
     }
@@ -84,7 +83,6 @@ public class DataRetrievalClient {
                 builder.append(System.lineSeparator());
             }
 
-            System.out.println(builder);
             return builder.toString();
         }
     }

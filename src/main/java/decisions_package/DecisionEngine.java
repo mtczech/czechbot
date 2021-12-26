@@ -3,10 +3,7 @@ package decisions_package;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
-import data_classes.Move;
-import data_classes.MoveURLList;
-import data_classes.Pokemon;
-import data_classes.Type;
+import data_classes.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +12,10 @@ import java.util.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import utility_classes.PokemonGameData;
+import utility_classes.PokemonGameDataTeam;
+import utility_classes.PokemonTemplate;
+import utility_classes.PokemonTemplateHolder;
 
 public class DecisionEngine {
     //JSON reader for loading the types into a type matrix
@@ -29,12 +30,17 @@ public class DecisionEngine {
     //DataRetrievalClient for getting JSON about pokemon and moves
     private DataRetrievalClient client = new DataRetrievalClient();
 
+    //Information about the current battle in the form of a BattleState object
+    private BattleState currentBattleState;
+
     /**
      * The names of moves according to PokeAPI have hyphens in them,
      * the names of moves according to Showdown do not, so I create a map of move names
      * to URLs where I remove the hyphens so I can look up moves
      */
     private MoveURLList movesToURLs;
+
+    private PokemonTemplateHolder pokemonDatabase;
 
     public MoveURLList getMovesToURLs() {
         return movesToURLs;
@@ -45,6 +51,8 @@ public class DecisionEngine {
         typeMatchups = mapper.readValue(typeMatrixJSON, new TypeReference<LinkedList<Type>>(){});
         File moveListJSON = new File("src/main/resources/all_moves.json");
         movesToURLs = mapper.readValue(moveListJSON, MoveURLList.class);
+        File pokemonMapJSON = new File("src/main/resources/all_pokemon.json");
+        pokemonDatabase = mapper.readValue(pokemonMapJSON, PokemonTemplateHolder.class);
     }
 
     public void setBattleGoing(boolean setIsBattleGoing) {
@@ -69,6 +77,10 @@ public class DecisionEngine {
 
     public ObjectMapper getMapper() {
         return mapper;
+    }
+
+    public BattleState getCurrentBattleState() {
+        return currentBattleState;
     }
 
     /**
@@ -125,6 +137,9 @@ public class DecisionEngine {
      * The move being created is based on the PokeAPI data for that particular move
      */
     public void addMoveToPokemon(Pokemon pokemon, String moveName) throws IOException {
+        if (pokemon.getMoves().size() >= 4) {
+            return;
+        }
         Move addedMove = moveDeserializeFunction(moveName);
         for (Move m : pokemon.getMoves()) {
             if (addedMove.getName().equals(m.getName())) {
@@ -132,5 +147,46 @@ public class DecisionEngine {
             }
         }
         pokemon.getMoves().add(addedMove);
+    }
+
+    /**
+     * Function for removing a move from a Pokemon
+     * This is only used to replace default moves (base 100 power STAB moves with no effects)
+     * with actual moves of the same type
+     */
+    public void removeMoveFromPokemon(Pokemon pokemon, String moveName) {
+        for (Move m : pokemon.getMoves()) {
+            if (m.getName().equals(moveName)) {
+                pokemon.getMoves().remove(m);
+            }
+        }
+    }
+
+    public void initializeBattle(PokemonGameDataTeam team) throws IOException {
+        Pokemon starter = new Pokemon();
+        List<Pokemon> bench = new LinkedList<>();
+        for (PokemonGameData p : team.dataList) {
+            PokemonTemplate currentTemplate = pokemonDatabase.accessTemplate(p.speciesName);
+            Pokemon current = new Pokemon(currentTemplate);
+            current.setCurrentHp(p.hp);
+            current.setHp(p.hp);
+            current.setAttack(p.atk);
+            current.setDefense(p.def);
+            current.setSpecialAttack(p.spa);
+            current.setSpecialDefense(p.spd);
+            current.setSpeed(p.spe);
+            current.setPokemonLevel(p.level);
+            current.setItem(p.item);
+            for (String move : p.moveNames) {
+                addMoveToPokemon(current, move);
+            }
+            if (p.isActive) {
+                starter = current;
+            } else {
+                bench.add(current);
+            }
+        }
+        Player botTeam = new Player(starter, bench);
+        currentBattleState = new BattleState(botTeam, new Player());
     }
 }

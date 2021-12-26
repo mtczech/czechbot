@@ -1,14 +1,15 @@
 package decisions_package;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import data_classes.AssertionHolder;
+import utility_classes.AssertionHolder;
+import utility_classes.PokemonGameDataTeam;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class DecisionTransmitter {
@@ -31,7 +32,7 @@ public class DecisionTransmitter {
     private Scanner consoleScanner;
 
     //Shows whether the user is player 1 or player 2
-    private boolean isPlayerOne;
+    private String playerId = "";
 
     public DecisionTransmitter(String serverURI) throws URISyntaxException, IOException {
         engine = new DecisionEngine();
@@ -68,22 +69,61 @@ public class DecisionTransmitter {
      * The bot can only do generation 8 random battles as of right now.
      * This command sets the bot to search for a random battle
      */
-    public void startRandomBattle() {
+    public void startRandomBattle() throws IOException, InterruptedException {
         //Code to start the search for a gen8 random battle
         showdownClient.send("|/utm null");
         showdownClient.send("|/search gen8randombattle");
         engine.setBattleGoing(true);
-        isPlayerOne = showdownClient.getIsPlayerOne();
+        playerId = showdownClient.getPlayerId();
+
         sendBattleMessages();
     }
 
     /**
      * Simple method of sending a message to Showdown with a move request
      */
-    public void sendBattleMessages() {
+    public void sendBattleMessages() throws IOException, InterruptedException {
+        while (!showdownClient.getIsRequestPending()) {
+            Thread.sleep(500);
+        }
+        //The request is only received once, it should go here
+        //it can get changed thanks to keywords
+        if (showdownClient.getIsRequestPending()) {
+            PokemonGameDataTeam team = mapper.readValue(showdownClient.getCurrentRequest(), PokemonGameDataTeam.class);
+            engine.initializeBattle(team);
+        }
         while (engine.getBattleGoing()) {
-            String message = consoleScanner.nextLine();
-            showdownClient.send(showdownClient.getBattleRoomId() + "|/" + message);
+            Thread.sleep(2000);
+            boolean request = showdownClient.getIsRequestPending();
+            if (showdownClient.getCurrentRequest().contains("forceSwitch") && request) {
+                showdownClient.setRequestSwitch(true);
+            } else if (request) {
+                showdownClient.setRequestSwitch(false);
+            }
+            if (request) {
+                showdownClient.setRequestPending(false);
+                //This is the code that executes the decision making system
+                int randomInt = new Random().nextInt();
+                int moveIndex = Math.abs(randomInt % 5);
+                if (showdownClient.getIsRequestSwitch()) {
+                    moveIndex = 0;
+                }
+                if (moveIndex == 0) {
+                    showdownClient.setRequestSwitch(false);
+                    showdownClient.send(showdownClient.getBattleRoomId() + "|/switch " + (Math.abs(new Random().nextInt() % 5) + 2));
+                    Thread.sleep(1000);
+                    if (showdownClient.isError) {
+                        showdownClient.setRequestPending(true);
+                        showdownClient.setRequestSwitch(true);
+                    }
+                } else {
+                    showdownClient.send(showdownClient.getBattleRoomId() + "|/move " + moveIndex);
+                    Thread.sleep(1000);
+                    if (showdownClient.isError) {
+                        showdownClient.setRequestPending(true);
+                    }
+                }
+            }
         }
     }
 }

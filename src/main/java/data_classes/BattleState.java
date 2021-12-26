@@ -15,9 +15,50 @@ public class BattleState {
         enemy = new Player(enemyStarter);
     }
 
+    public BattleState(Player you, Player other) {
+        bot = you;
+        enemy = other;
+    }
+
+    public BattleState() {
+
+    }
+
     //The weather currently on the field
     private Weather weather = Weather.None;
 
     //The terrain of the field
     private Terrain terrain = Terrain.None;
+
+    public void setBot(Player setBot) {
+        bot = setBot;
+    }
+
+    public void setEnemy(Player enemy) {
+        this.enemy = enemy;
+    }
+
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
+    }
+
+    public void setWeather(Weather weather) {
+        this.weather = weather;
+    }
+
+    public Player getBot() {
+        return bot;
+    }
+
+    public Player getEnemy() {
+        return enemy;
+    }
+
+    public Terrain getTerrain() {
+        return terrain;
+    }
+
+    public Weather getWeather() {
+        return weather;
+    }
 }

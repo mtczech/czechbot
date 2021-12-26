@@ -1,4 +1,4 @@
-package data_classes;
+package utility_classes;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

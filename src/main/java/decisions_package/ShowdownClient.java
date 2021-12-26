@@ -17,11 +17,19 @@ public class ShowdownClient extends WebSocketClient {
         super(serverUri);
     }
 
+    private String currentRequest;
+
     private String challstr = "";
 
     private String battleRoomId = "";
 
-    private boolean isPlayerOne;
+    private String playerId = "";
+
+    private boolean isRequestPending = false;
+
+    private boolean isRequestSwitch = false;
+
+    public boolean isError = false;
 
     @Override
     public void onOpen(ServerHandshake serverHandshake) {
@@ -33,10 +41,8 @@ public class ShowdownClient extends WebSocketClient {
     @Override
     public void onMessage(String s) {
         System.out.println(s);
-        System.out.println("new message");
         if (s.contains("|challstr|")) {
-            String[] strings = s.split("\\|");
-            challstr = strings[2] + "|" + strings[3];
+            challstr = s.replace("|challstr|", "");
         }
         if (s.charAt(0) == '>') {
             String[] lines = s.split("\n");
@@ -44,9 +50,24 @@ public class ShowdownClient extends WebSocketClient {
         }
         //TODO: If you are using this with a different username, change <czechbot> to your username
         if (s.contains("|player|p1|czechbot")) {
-            isPlayerOne = true;
+            playerId = "p1";
         } else if (s.contains("|player|p2|czechbot")) {
-            isPlayerOne = false;
+            playerId = "p2";
+        }
+        if (s.contains("|request|")) {
+            if (s.contains("{")) {
+                int jsonStart = s.indexOf("{");
+                currentRequest = s.substring(jsonStart);
+                isRequestPending = true;
+                if (currentRequest.contains("forceSwitch") && currentRequest.contains("[true]")) {
+                    isRequestSwitch = true;
+                } else {
+                    isRequestSwitch = false;
+                }
+            }
+        }
+        if (s.contains("|error|")) {
+            isError = true;
         }
     }
 
@@ -60,6 +81,8 @@ public class ShowdownClient extends WebSocketClient {
         System.out.println(e);
     }
 
+    public String getCurrentRequest() { return currentRequest; }
+
     public String getChallstr() {
         return challstr;
     }
@@ -68,7 +91,35 @@ public class ShowdownClient extends WebSocketClient {
         return battleRoomId;
     }
 
-    public boolean getIsPlayerOne() {
-        return isPlayerOne;
+    public String getPlayerId() {
+        return playerId;
+    }
+
+    public boolean getIsRequestPending() {
+        return isRequestPending;
+    }
+
+    public boolean getIsRequestSwitch() {
+        return isRequestSwitch;
+    }
+
+    public void setRequestPending(boolean requestPending) {
+        isRequestPending = requestPending;
+    }
+
+    public void setRequestSwitch(boolean requestSwitch) {
+        isRequestSwitch = requestSwitch;
+    }
+
+    //I don't need to be very thorough when checking for JSON, since I
+    //am only checking standardized inputs from Showdown
+    private boolean checkIfJson(String potentialJSON) {
+        if (potentialJSON == "") {
+            return false;
+        }
+        if (potentialJSON.charAt(0) == '{' && potentialJSON.charAt(potentialJSON.length() - 1) == '}') {
+            return true;
+        }
+        return false;
     }
 }
