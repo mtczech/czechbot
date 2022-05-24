@@ -1,4 +1,9 @@
-Welcome to Czechbot, a Pokemon Showdown battle bot! Note: This is still very much a work in progress.
+Welcome to Czechbot, a Pokemon Showdown battle bot! Note: Unfortunately, I have been forced to stop work on Czechbot. Czechbot works by 
+taking in data from various sources, including a website called Pokemon Showdown, and the complete database comes from Pokemon Showdown. 
+Pokemon Showdown is created in JavaScript, and therefore the data for the different Pokemon moves and abilities is in TypeScript. However,
+the work I have done on Czechbot is in Java. There is a partial JSON database online for the moves, but it does not have everything I need
+and no such database exists for the abilities. So I have two choices: either hard code every possible move and ability into my code from scratch
+(there are hundreds of each) or scrap the project, and I have chosen to scrap the project.
 
 **What Czechbot Does**
 
